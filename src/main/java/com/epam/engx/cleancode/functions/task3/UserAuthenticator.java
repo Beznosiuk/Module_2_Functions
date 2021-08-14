@@ -4,20 +4,22 @@ import com.epam.engx.cleancode.functions.task3.thirdpartyjar.SessionManager;
 import com.epam.engx.cleancode.functions.task3.thirdpartyjar.User;
 import com.epam.engx.cleancode.functions.task3.thirdpartyjar.UserService;
 
+import java.util.Optional;
+
 public abstract class UserAuthenticator implements UserService {
 
     private SessionManager sessionManager;
 
-    public User login(String userName, String password) {
-        return loginUser(getUserByName(userName), password);
+    public Optional<Object> login(String userName, String password) {
+        return checkPasswordAndSetUser(getUserByName(userName), password);
     }
 
-    private User loginUser(User user, String password) {
+    private Optional<Object> checkPasswordAndSetUser(User user, String password) {
         if (isPasswordCorrect(user, password)) {
             sessionManager.setCurrentUser(user);
-            return user;
+            return Optional.ofNullable(user);
         }
-        return null;
+        return Optional.empty();
     }
 
     public void setSessionManager(SessionManager sessionManager) {

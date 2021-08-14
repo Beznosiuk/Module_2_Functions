@@ -9,7 +9,7 @@ public class UserControllerTest {
     @Test
     public void shouldNotAuthenticateUser() {
         userController.setUserAuthenticator(new FalseUserAuthenticator());
-        userController.authenticateUser("admin", "123");
+        userController.checkIsUserPresentAndAuthenticate("admin", "123");
         userController.assertGenerateFailLoginResponseCalled();
     }
 
@@ -17,7 +17,7 @@ public class UserControllerTest {
     public void shouldAuthenticateUser() {
         TrueUserAuthenticatorMock trueUserAuthenticatorMock = new TrueUserAuthenticatorMock();
         userController.setUserAuthenticator(trueUserAuthenticatorMock);
-        userController.authenticateUser("admin", "123");
+        userController.checkIsUserPresentAndAuthenticate("admin", "123");
         userController.assertGenerateSuccessLoginResponseCalled();
         trueUserAuthenticatorMock.assertSetCurrentUserToSession();
     }

@@ -3,17 +3,29 @@ package com.epam.engx.cleancode.functions.task5;
 import java.util.Calendar;
 import java.util.Date;
 
+import static java.util.Calendar.DATE;
+import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MILLISECOND;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.SECOND;
+import static java.util.Calendar.getInstance;
+
 public class DateUtil {
 
-	public Date changeToMidnight(Date date, boolean up) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.add(Calendar.DATE, up ? 1 : -1);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		return calendar.getTime();
-	}
+    private static final int ZERO_VALUE = 0;
+    Calendar calendar = getInstance();
 
+    public Date changeToMidnight(Date date, boolean up) {
+        calendar.setTime(date);
+        calendar.add(DATE, up ? 1 : -1);
+        setMidnightTime(calendar);
+        return calendar.getTime();
+    }
+
+    private void setMidnightTime(Calendar calendar) {
+        int[] midnightTimeFields = new int[]{HOUR_OF_DAY, MINUTE, SECOND, MILLISECOND};
+        for (int timeField : midnightTimeFields) {
+            calendar.set(timeField, ZERO_VALUE);
+        }
+    }
 }
