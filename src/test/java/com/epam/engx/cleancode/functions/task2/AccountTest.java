@@ -54,21 +54,21 @@ public class AccountTest {
     @Test
     public void shouldGetFirstLevelWhenThereAreEnoughAnswers() {
         Account accountStub = new AccountStub(Arrays.<Review>asList(new ReviewStub(10)));
-        accountStub.setLevelMap(levelMap);
+        accountStub.setThresholdToLevel(levelMap);
         assertEquals(new Level("1"), accountStub.getActivityLevel());
     }
 
     @Test
     public void shouldGetFirstLevelWhenThereAreEnoughSumOfAnswers() {
         Account accountStub = new AccountStub(Arrays.<Review>asList(new ReviewStub(5), new ReviewStub(5)));
-        accountStub.setLevelMap(levelMap);
+        accountStub.setThresholdToLevel(levelMap);
         assertEquals(new Level("1"), accountStub.getActivityLevel());
     }
 
     @Test
     public void shouldGetSecondLevelWhenThereAreEnoughAnswers() {
         Account accountStub = new AccountStub(Arrays.<Review>asList(new ReviewStub(30)));
-        accountStub.setLevelMap(levelMap);
+        accountStub.setThresholdToLevel(levelMap);
         assertEquals(new Level("2"), accountStub.getActivityLevel());
     }
 }

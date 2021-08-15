@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class DateUtilTestHelper {
 
-    public static Date getDirectlyIncrementedDate(DateUtil dateUtil, Date date) {
-        return dateUtil.changeToMidnight(date, true);
+    public static Date getDirectlyIncrementedDate(DateService dateUtil, Date date) {
+        return dateUtil.changeToMidnightDirectlyIncremented(date);
     }
 
-    public static Date getInverseIncrementedDate(DateUtil dateUtil, Date date) {
-        return dateUtil.changeToMidnight(date, false);
+    public static Date getInverseIncrementedDate(DateService dateUtil, Date date) {
+        return dateUtil.changeToMidnightInverseIncremented(date);
     }
 }

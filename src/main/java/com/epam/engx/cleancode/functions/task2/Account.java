@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 public abstract class Account implements User {
 
-    private TreeMap<Integer, Level> levelMap = new TreeMap<>();
+    private TreeMap<Integer, Level> thresholdToLevel = new TreeMap<>();
 
     public Level getActivityLevel() {
         validateAccountForLevel();
@@ -36,14 +36,15 @@ public abstract class Account implements User {
     }
 
     private Level getLevelByReviews(int reviewAnswers) {
-        for (Integer threshold : levelMap.keySet()) {
-            if (reviewAnswers >= threshold)
-                return levelMap.get(threshold);
+        for (Integer threshold : thresholdToLevel.keySet()) {
+            if (reviewAnswers >= threshold) {
+                return thresholdToLevel.get(threshold);
+            }
         }
         return Level.defaultLevel();
     }
 
-    public void setLevelMap(TreeMap<Integer, Level> levelMap) {
-        this.levelMap = levelMap;
+    public void setThresholdToLevel(TreeMap<Integer, Level> thresholdToLevel) {
+        this.thresholdToLevel = thresholdToLevel;
     }
 }

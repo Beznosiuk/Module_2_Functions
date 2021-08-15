@@ -10,17 +10,16 @@ import static com.epam.engx.cleancode.functions.task1.thirdpartyjar.CheckStatus.
 
 public class RegisterAccountAction {
 
+    private static final int MINIMAL_ACCOUNT_NAME_LENGTH = 6;
+    private static final int MINIMAL_PASSWORD_LENGTH = 9;
 
     private PasswordChecker passwordChecker;
     private AccountManager accountManager;
 
-    private static final int MINIMAL_ACCOUNT_NAME_LENGTH = 5;
-    private static final int MINIMAL_PASSWORD_LENGTH = 8;
-
     public void registerNewAccount(Account account) {
-        checkAccountNameLength(account);
-        checkPasswordLength(account);
-        validatePassword(account);
+        validateAccountNameLength(account.getName());
+        validatePasswordLength(account.getPassword());
+        validatePassword(account.getPassword());
 
         account.setCreatedDate(new Date());
         account.setAddresses(setAddressesList(account));
@@ -28,25 +27,25 @@ public class RegisterAccountAction {
         accountManager.createNewAccount(account);
     }
 
-    public void checkAccountNameLength(Account account) {
-        if (account.getName().length() <= MINIMAL_ACCOUNT_NAME_LENGTH) {
+    private void validateAccountNameLength(String name) {
+        if (name.length() < MINIMAL_ACCOUNT_NAME_LENGTH) {
             throw new WrongAccountNameException();
         }
     }
 
-    public void checkPasswordLength(Account account) {
-        if (account.getPassword().length() <= MINIMAL_PASSWORD_LENGTH) {
+    private void validatePasswordLength(String password) {
+        if (password.length() < MINIMAL_PASSWORD_LENGTH) {
             throw new TooShortPasswordException();
         }
     }
 
-    public void validatePassword(Account account) {
-        if (passwordChecker.validate(account.getPassword()) != OK) {
+    private void validatePassword(String password) {
+        if (passwordChecker.validate(password) != OK) {
             throw new WrongPasswordException();
         }
     }
 
-    public List<Address> setAddressesList(Account account) {
+    private List<Address> setAddressesList(Account account) {
         return Arrays.asList(account.getHomeAddress(), account.getWorkAddress(), account.getAdditionalAddress());
     }
 

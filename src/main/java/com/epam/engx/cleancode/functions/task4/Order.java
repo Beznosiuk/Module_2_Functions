@@ -10,23 +10,15 @@ public class Order {
     private List<Product> products;
 
     public Double getPriceOfAvailableProducts() {
-        return getOrderPrice(getAvailableProducts());
+        return getOrderPrice();
     }
 
-    private List<Product> getAvailableProducts() {
-        List<Product> availableProducts = new ArrayList<>();
+    private Double getOrderPrice() {
+        double orderPrice = 0.0;
         for (Product product : products) {
             if (product.isAvailable()) {
-                availableProducts.add(product);
+                orderPrice += product.getProductPrice();
             }
-        }
-        return availableProducts;
-    }
-
-    private Double getOrderPrice(List<Product> availableProducts) {
-        double orderPrice = 0.0;
-        for (Product availableProduct : availableProducts) {
-            orderPrice += availableProduct.getProductPrice();
         }
         return orderPrice;
     }

@@ -10,14 +10,22 @@ import static java.util.Calendar.MINUTE;
 import static java.util.Calendar.SECOND;
 import static java.util.Calendar.getInstance;
 
-public class DateUtil {
+public class DateService {
 
     private static final int ZERO_VALUE = 0;
-    Calendar calendar = getInstance();
 
-    public Date changeToMidnight(Date date, boolean up) {
+    public Date changeToMidnightDirectlyIncremented(Date date) {
+        Calendar calendar = getInstance();
         calendar.setTime(date);
-        calendar.add(DATE, up ? 1 : -1);
+        calendar.add(DATE, 1);
+        setMidnightTime(calendar);
+        return calendar.getTime();
+    }
+
+    public Date changeToMidnightInverseIncremented(Date date) {
+        Calendar calendar = getInstance();
+        calendar.setTime(date);
+        calendar.add(DATE, -1);
         setMidnightTime(calendar);
         return calendar.getTime();
     }
