@@ -2,8 +2,6 @@ package com.epam.engx.cleancode.functions.task3;
 
 import com.epam.engx.cleancode.functions.task3.thirdpartyjar.Controller;
 
-import java.io.IOException;
-
 public abstract class UserController implements Controller {
 
     private UserAuthenticator userAuthenticator;
@@ -12,7 +10,7 @@ public abstract class UserController implements Controller {
         try {
             userAuthenticator.login(userName, password);
             generateSuccessLoginResponse(userName);
-        } catch (IOException ioException) {
+        } catch (IncorrectPasswordException passwordException) {
             generateFailLoginResponse();
         }
     }
